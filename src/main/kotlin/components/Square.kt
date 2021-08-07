@@ -9,14 +9,14 @@ import react.dom.attrs
 import react.dom.button
 
 external interface SquareProps : RProps {
-    var value: Int
+    var value: String
 }
 
 data class SquareState(val value: String) : RState
 
 class Square(props: SquareProps) : RComponent<SquareProps, SquareState>(props) {
     init {
-        this.state = SquareState(props.value.toString())
+        this.state = SquareState(props.value)
     }
 
     override fun RBuilder.render() {

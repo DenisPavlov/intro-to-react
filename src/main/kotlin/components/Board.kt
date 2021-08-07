@@ -6,12 +6,20 @@ import react.RProps
 import react.RState
 import react.dom.div
 
-class Board(props: RProps): RComponent<RProps, RState>(props) {
+data class BoardState(val squares: MutableList<String>) : RState
+
+class Board(props: RProps): RComponent<RProps, BoardState>(props) {
     private val status = "Next player: X"
+
+    init {
+        state = BoardState(
+            squares = MutableList(9) { "" }
+        )
+    }
 
     private fun RBuilder.renderSquare(i: Int) {
         child(Square::class){
-            attrs.value = i
+            attrs.value = state.squares[i]
         }
     }
 

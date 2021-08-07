@@ -10,7 +10,9 @@ class Board(props: RProps): RComponent<RProps, RState>(props) {
     private val status = "Next player: X"
 
     private fun RBuilder.renderSquare(i: Int) {
-        child(Square::class){ }
+        child(Square::class){
+            attrs.value = i
+        }
     }
 
     override fun RBuilder.render() {

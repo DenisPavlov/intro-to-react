@@ -1,3 +1,4 @@
+import components.Game
 import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
@@ -5,11 +6,7 @@ import kotlinx.browser.window
 fun main() {
     window.onload = {
         render(document.getElementById("root")) {
-            child(Welcome::class) {
-                attrs {
-                    name = "Kotlin/JS"
-                }
-            }
+            child(Game::class) { }
         }
     }
 }

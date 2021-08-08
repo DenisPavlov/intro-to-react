@@ -10,21 +10,18 @@ import react.dom.button
 
 external interface SquareProps : RProps {
     var value: String
+    var onClickFunction: () -> Unit
 }
 
 data class SquareState(val value: String) : RState
 
 class Square(props: SquareProps) : RComponent<SquareProps, SquareState>(props) {
-    init {
-        this.state = SquareState(props.value)
-    }
-
     override fun RBuilder.render() {
         button(classes = "square") {
             attrs {
-                onClickFunction = { setState(SquareState("X")) }
+                onClickFunction = { props.onClickFunction() }
             }
-            +state.value
+            +props.value
         }
     }
 }

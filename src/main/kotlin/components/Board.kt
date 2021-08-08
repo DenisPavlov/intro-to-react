@@ -20,7 +20,14 @@ class Board(props: RProps): RComponent<RProps, BoardState>(props) {
     private fun RBuilder.renderSquare(i: Int) {
         child(Square::class){
             attrs.value = state.squares[i]
+            attrs.onClickFunction = { handleClick(i) }
         }
+    }
+
+    private fun handleClick(i: Int) {
+        val squares = state.squares
+        squares[i] = "X"
+        setState(BoardState(squares))
     }
 
     override fun RBuilder.render() {

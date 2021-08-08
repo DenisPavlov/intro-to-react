@@ -7,14 +7,16 @@ import react.RState
 import react.child
 import react.dom.div
 
-data class BoardState(val squares: List<String>) : RState
+data class BoardState(
+    val squares: List<String>,
+    val xIsNext: Boolean,
+) : RState
 
 class Board(props: RProps) : RComponent<RProps, BoardState>(props) {
-    private val status = "Next player: X"
-
     init {
         state = BoardState(
-            squares = List(9) { "" }
+            squares = List(9) { "" },
+            xIsNext = true,
         )
     }
 
@@ -27,11 +29,18 @@ class Board(props: RProps) : RComponent<RProps, BoardState>(props) {
 
     private fun handleClick(i: Int) {
         val squares = state.squares.toMutableList()
-        squares[i] = "X"
-        setState(BoardState(squares.toList()))
+        squares[i] = if (state.xIsNext) "X" else "O"
+        setState(
+            BoardState(
+                squares = squares.toList(),
+                xIsNext = !state.xIsNext,
+            )
+        )
     }
 
     override fun RBuilder.render() {
+        val status = "Next player: ${if (state.xIsNext) "X" else "O"}"
+
         div {
             div(classes = "status") { +status }
             div(classes = "board-row") {

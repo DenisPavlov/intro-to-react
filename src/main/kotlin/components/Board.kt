@@ -6,14 +6,14 @@ import react.RProps
 import react.RState
 import react.dom.div
 
-data class BoardState(val squares: MutableList<String>) : RState
+data class BoardState(val squares: List<String>) : RState
 
 class Board(props: RProps): RComponent<RProps, BoardState>(props) {
     private val status = "Next player: X"
 
     init {
         state = BoardState(
-            squares = MutableList(9) { "" }
+            squares = List(9) { "" }
         )
     }
 
@@ -25,9 +25,9 @@ class Board(props: RProps): RComponent<RProps, BoardState>(props) {
     }
 
     private fun handleClick(i: Int) {
-        val squares = state.squares
+        val squares = state.squares.toMutableList()
         squares[i] = "X"
-        setState(BoardState(squares))
+        setState(BoardState(squares.toList()))
     }
 
     override fun RBuilder.render() {

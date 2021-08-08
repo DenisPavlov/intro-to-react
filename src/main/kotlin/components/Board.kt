@@ -4,11 +4,12 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import react.child
 import react.dom.div
 
 data class BoardState(val squares: List<String>) : RState
 
-class Board(props: RProps): RComponent<RProps, BoardState>(props) {
+class Board(props: RProps) : RComponent<RProps, BoardState>(props) {
     private val status = "Next player: X"
 
     init {
@@ -18,7 +19,7 @@ class Board(props: RProps): RComponent<RProps, BoardState>(props) {
     }
 
     private fun RBuilder.renderSquare(i: Int) {
-        child(Square::class){
+        child(square) {
             attrs.value = state.squares[i]
             attrs.onClickFunction = { handleClick(i) }
         }
